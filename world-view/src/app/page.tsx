@@ -38,11 +38,12 @@ export default function Home() {
         <p>hello world</p>
 
         <button onClick={changeCurrentCountry}>Research</button>
-        {/* {data && <p>{data.cca2}</p>} */}
       </main>
-      {data.map((elem, i) => (
-        <Carte data={elem} key={i}></Carte>
-      ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
+        {data.map((elem, i) => (
+          <Carte data={elem} key={i}></Carte>
+        ))}
+      </div>
     </div>
   )
 }

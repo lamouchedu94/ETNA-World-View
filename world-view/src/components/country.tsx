@@ -29,9 +29,9 @@ interface CarteProps {
 
 export function Carte({ data }: CarteProps) {
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center">
       {data && <p>{data.name.common}</p>}
-      {data && <img src={data.flags.svg} alt="flag" width={600}></img>}
+      {data && <img src={data.flags.svg} alt="flag" width={400}></img>}
     </div>
   )
 }
