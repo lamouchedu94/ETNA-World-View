@@ -1,6 +1,8 @@
 'use client'
 import { useState } from 'react'
 import { fetchCountryData } from '@/sevices/users/UsersService'
+import Carte from '@/components/country'
+import NavBar from '@/components/navbar'
 
 type countryData = {
   name: {
@@ -13,6 +15,7 @@ type countryData = {
       }
     }
   }
+  tld: {}
   independent: boolean
   currencies: {
     [key: string]: {
@@ -35,6 +38,7 @@ export default function Home() {
       fetchCountryData(inputCountry).then((data) => {
         setData({
           name: { common: data.name.common, official: data.name.official, nativeName: data.name.nativeName },
+          tld: data.tld,
           independent: data.independent,
           currencies: data.currencies,
           flags: data.flags
@@ -44,16 +48,18 @@ export default function Home() {
     }
   }
 
+  function handleSetInput(input: string) {
+    setinputContry(input)
+  }
+
   return (
-    <div className="flex justify-center ">
+    <div className="flex justify-center flex-col">
+      <div className="flex justify-center bg-[rgb(36,35,35)]">
+        <NavBar handleSetInput={handleSetInput} inputCountry={inputCountry}></NavBar>
+      </div>
       <main className="flex flex-col align-middle max-w-10">
         <p>hello world</p>
-        <input
-          type="text"
-          className="bg-[rgb(229,229,229)]"
-          value={inputCountry}
-          onChange={(v) => setinputContry(v.currentTarget.value)}
-        />
+
         <button onClick={changeCurrentCountry}>Research</button>
         <div>
           {data && <p>{data.name.common}</p>}
@@ -61,6 +67,7 @@ export default function Home() {
         </div>
         {/* {data && <p>{data.cca2}</p>} */}
       </main>
+      <Carte></Carte>
     </div>
   )
 }
