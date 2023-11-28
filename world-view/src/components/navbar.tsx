@@ -13,6 +13,7 @@ export default function NavBar({ inputCountry, handleSetInput }: NavBarProps) {
         placeholder="Rechercher"
         onChange={(v) => handleSetInput(v.currentTarget.value)}
       />
+      {/* <button>Research</button> */}
     </nav>
   )
 }
