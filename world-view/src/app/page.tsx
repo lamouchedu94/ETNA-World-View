@@ -1,48 +1,24 @@
 'use client'
-import { useState } from 'react'
-import { fetchCountryData } from '@/sevices/users/UsersService'
-import Carte from '@/components/country'
+import { useEffect, useState } from 'react'
+import { fetchAllCountryData } from '@/sevices/users/UsersService'
 import NavBar from '@/components/navbar'
-
-type countryData = {
-  name: {
-    common: string
-    official: string
-    nativeName: {
-      [key: string]: {
-        official: string
-        common: string
-      }
-    }
-  }
-  tld: {}
-  independent: boolean
-  currencies: {
-    [key: string]: {
-      name: string
-      symbol: string
-    }
-  }
-  flags: {
-    png: string
-    svg: string
-  }
-}
+import { countryData, Carte } from '@/components/country'
 
 export default function Home() {
   const [inputCountry, setinputContry] = useState<string>('')
   // const [data, setData] = useState<any>()
-  const [data, setData] = useState<countryData>()
+  const [data, setData] = useState<countryData[]>([])
+
+  useEffect(() => {
+    fetchAllCountryData().then((d) => {
+      setData(d)
+      // setData(data)
+    })
+  }, [])
   function changeCurrentCountry() {
     if (inputCountry !== 'null') {
-      fetchCountryData(inputCountry).then((data) => {
-        setData({
-          name: { common: data.name.common, official: data.name.official, nativeName: data.name.nativeName },
-          tld: data.tld,
-          independent: data.independent,
-          currencies: data.currencies,
-          flags: data.flags
-        })
+      fetchAllCountryData().then((data) => {
+        setData(data)
         // setData(data)
       })
     }
@@ -52,6 +28,7 @@ export default function Home() {
     setinputContry(input)
   }
 
+  console.log(data)
   return (
     <div className="flex justify-center flex-col">
       <div className="flex justify-center bg-[rgb(36,35,35)]">
@@ -61,13 +38,11 @@ export default function Home() {
         <p>hello world</p>
 
         <button onClick={changeCurrentCountry}>Research</button>
-        <div>
-          {data && <p>{data.name.common}</p>}
-          {data && <img src={data.flags.svg} alt="flag" width={600}></img>}
-        </div>
         {/* {data && <p>{data.cca2}</p>} */}
       </main>
-      <Carte></Carte>
+      {data.map((elem, i) => (
+        <Carte data={elem} key={i}></Carte>
+      ))}
     </div>
   )
 }
