@@ -11,6 +11,17 @@ export default function Home() {
 
   useEffect(() => {
     fetchAllCountryData().then((d) => {
+      data.sort((a, b) => {
+        const nameA = a.name.common.toUpperCase()
+        const nameB = b.name.common.toUpperCase()
+        if (nameA < nameB) {
+          return -1
+        }
+        if (nameA > nameB) {
+          return 1
+        }
+        return 0
+      })
       setData(d)
       // setData(data)
     })
@@ -35,8 +46,6 @@ export default function Home() {
         <NavBar handleSetInput={handleSetInput} inputCountry={inputCountry}></NavBar>
       </div>
       <main className="flex flex-col align-middle max-w-10">
-        <p>hello world</p>
-
         <button onClick={changeCurrentCountry}>Research</button>
       </main>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
