@@ -29,8 +29,11 @@ export default function Home() {
 
   function handleSetInput(input: string) {
     setinputContry(input)
-    setDataStartWith(data.filter((item) => item.name.common.startsWith(inputCountry)))
   }
+
+  useEffect(() => {
+    setDataStartWith(data.filter((item) => item.name.common.includes(inputCountry)))
+  }, [inputCountry])
 
   // console.log(data)
   return (
