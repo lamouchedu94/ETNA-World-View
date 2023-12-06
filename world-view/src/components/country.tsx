@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export type countryData = {
   name: {
     common: string
@@ -10,6 +12,7 @@ export type countryData = {
     }
   }
   tld: {}
+  ccn3: string
   independent: boolean
   currencies: {
     [key: string]: {
@@ -29,9 +32,12 @@ interface CarteProps {
 
 export function Carte({ data }: CarteProps) {
   return (
-    <div className="flex flex-col justify-center items-center border-2 rounded-lg p-3 mb-10">
+    <Link
+      className="flex flex-col justify-center items-center border-2 rounded-lg p-3 mb-10"
+      href={`/detail?name=${data?.name.common}`}
+    >
       {data && <p>{data.name.common}</p>}
       {data && <img src={data.flags.svg} alt="flag" width={400}></img>}
-    </div>
+    </Link>
   )
 }
