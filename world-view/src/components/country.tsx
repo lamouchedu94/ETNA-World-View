@@ -36,8 +36,19 @@ export type countryData = {
   // Region et sous région
   // les noms commun et natif ;
   // les noms officiels commun et natif ;
+  // le coefficient GINI du pays ;
   capital: {
-    [key: number]: string
+    0: string
+  }
+  unMember: boolean
+  languages: {
+    [key: string]: string
+  }
+  demonyms: {
+    eng: {
+      f: string
+      m: string
+    }
   }
 }
 
