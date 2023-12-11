@@ -33,13 +33,33 @@ export default function mainDetailPage() {
   //     console.error("data.border n'est pas un tableau ou n'est pas défini.")
   //   }
   // }
-  function test() {
+  function extractBorder() {
     if (data?.borders) {
       const mapped = Object.entries(data?.borders).map(([key, value]) => ({
         key: Number(key),
         value
       }))
       return mapped.map((item) => item.value + '\n')
+    }
+  }
+
+  function extractCurrencies() {
+    if (data?.currencies) {
+      const mapped = Object.entries(data?.currencies).map(([key, value]) => ({
+        key: String(key),
+        value
+      }))
+      return mapped.map((item) => item.value.name)
+    }
+  }
+
+  function extractLanguages() {
+    if (data?.languages) {
+      const mapped = Object.entries(data?.languages).map(([key, value]) => ({
+        key: String(key),
+        value
+      }))
+      return mapped.map((item) => item.value)
     }
   }
 
@@ -65,7 +85,39 @@ export default function mainDetailPage() {
         </div>
         <div>
           <p>Border:</p>
-          {test()}
+          {extractBorder()}
+        </div>
+        <div>
+          <p>Capital:</p>
+          {data?.capital[0]}
+        </div>
+        <div>
+          <p>Independent:</p>
+          {data?.independent ? 'Yes' : 'No'}
+        </div>
+        <div>
+          <p>un Member:</p>
+          {data?.unMember ? 'Yes' : 'No'}
+        </div>
+        <div>
+          <p>Population:</p>
+          <p>{data?.population} People</p>
+        </div>
+        <div>
+          <p>Currencies:</p>
+          {extractCurrencies()}
+        </div>
+        <div>
+          <p>Language(s):</p>
+          {extractLanguages()}
+        </div>
+        <div>
+          <p>Demonyms:</p>
+          <p>
+            {data?.demonyms.eng.f !== data?.demonyms.eng.m
+              ? data?.demonyms.eng.f + 'anddata' + data?.demonyms.eng.m
+              : data?.demonyms.eng.f}
+          </p>
         </div>
       </div>
     </div>
