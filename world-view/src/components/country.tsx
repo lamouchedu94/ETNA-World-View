@@ -11,7 +11,7 @@ export type countryData = {
       }
     }
   }
-  tld: {}
+  tld: []
   ccn3: string
   independent: boolean
   currencies: {
@@ -23,6 +23,21 @@ export type countryData = {
   flags: {
     png: string
     svg: string
+  }
+  latlng: {
+    0: number
+    1: number
+  }
+  area: number
+  borders: {
+    [key: number]: string
+  }
+  population: number
+  // Region et sous région
+  // les noms commun et natif ;
+  // les noms officiels commun et natif ;
+  capital: {
+    [key: number]: string
   }
 }
 
