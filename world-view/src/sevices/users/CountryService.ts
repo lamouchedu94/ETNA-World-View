@@ -6,7 +6,7 @@ export const fetchCountryData = async (name: string) => {
 }
 
 export const fetchAllCountryData = async () => {
-  return await api.get('all?fields=name,tld,independent,currencies,flags').then((response) => {
+  return await api.get('all?fields=name,tld,independent,currencies,flags,ccn3').then((response) => {
     // console.log(response.data)
     return response.data as countryData[]
   })
