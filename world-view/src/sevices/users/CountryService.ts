@@ -11,3 +11,9 @@ export const fetchAllCountryData = async () => {
     return response.data as countryData[]
   })
 }
+
+export const fetchOneCountryData = async (ccn3: string) => {
+  return await api.get('alpha/' + ccn3).then((response) => {
+    return response.data[0] as countryData
+  })
+}
