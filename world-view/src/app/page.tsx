@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { fetchAllCountryData } from '@/sevices/users/UsersService'
+import { fetchAllCountryData } from '@/sevices/users/CountryService'
 import NavBar from '@/components/navbar'
 import { countryData, Carte } from '@/components/country'
 
@@ -32,7 +32,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    setDataStartWith(data.filter((item) => item.name.common.includes(inputCountry)))
+    setDataStartWith(data.filter((item) => item.name.common.toUpperCase().includes(inputCountry.toUpperCase())))
   }, [inputCountry])
 
   // console.log(data)
