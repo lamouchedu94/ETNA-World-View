@@ -34,8 +34,6 @@ export type countryData = {
   }
   population: number
   // Region et sous région
-  // les noms commun et natif ;
-  // les noms officiels commun et natif ;
   // le coefficient GINI du pays ;
   capital: {
     0: string
@@ -49,6 +47,12 @@ export type countryData = {
       f: string
       m: string
     }
+  }
+  gini: {
+    [key: number]: number
+  }
+  maps: {
+    openStreetMaps: string
   }
 }
 
