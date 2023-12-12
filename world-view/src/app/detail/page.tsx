@@ -54,16 +54,6 @@ export default function mainDetailPage() {
     }
   }
 
-  function extractLanguages() {
-    if (data?.languages) {
-      const mapped = Object.entries(data?.languages).map(([key, value]) => ({
-        key: String(key),
-        value
-      }))
-      return mapped.map((item) => item.value + ' ')
-    }
-  }
-
   function extractNativeName() {
     if (data?.name.nativeName) {
       const mapped = Object.keys(data?.name.nativeName)
@@ -71,9 +61,7 @@ export default function mainDetailPage() {
       return nativeName + ' '
     }
   }
-  console.log()
   const nname = extractNativeName()?.split(',')
-  console.log(data?.gini)
   return (
     <div className="flex justify-center flex-col">
       <nav className="py-2 mb-4 bg-[rgb(36,35,35)] flex flex-col items-center">
@@ -90,65 +78,83 @@ export default function mainDetailPage() {
             </a>
             <div className="mt-2 text-4xl font-extrabold">{data?.name.common} </div>
           </div>
-          <div className="border p-4 rounded-2xl">
-            <div className="mb-2">
-              <p className="font-bold">Commun:</p>
-              {nname ? nname.map((item, i) => <ul key={i}>{item}</ul>) : ''}
+          <div className="flex  border p-4 rounded-2xl">
+            {/* GROUP 1 */}
+            <div className="m-5">
+              <div className="mb-2">
+                <p className="font-bold">Commun:</p>
+                {nname ? nname.map((item, i) => <ul key={i}>{item}</ul>) : ''}
+              </div>
             </div>
-            <div className="mb-2">
-              <p className="font-medium">Tld :</p>
-              {data && data.tld.map((item) => item + '\n')}
+            {/* GROUP 2 */}
+            <div className="m-5">
+              <p>Geo data</p>
+              <div className="mb-2">
+                <p className="font-bold">Capital:</p>
+                {data.capital ? data?.capital[0] : 'none'}
+              </div>
+              <div className="mb-2">
+                <p className="font-bold">Aera:</p>
+                {data && data.area + 'km²'}
+              </div>
+              <div>
+                <p className="font-bold">Latitude: </p> {data && data.latlng[0].toFixed(2)}°N
+              </div>
+              <div className="mb-2">
+                <p className="font-bold">Longitude: </p>
+                {data && data.latlng[1].toFixed(2)}°E
+              </div>
+              <div className="mb-2">
+                <p className="font-bold">Border:</p>
+                {extractBorder()}
+              </div>
             </div>
-            <div>
-              <p className="font-bold">Latitude: </p> {data && data.latlng[0].toFixed(2)}°N
+            {/* GROUP 3 */}
+            <div className="m-5">
+              <p>Political</p>
+              <div className="mb-2">
+                <p className="font-bold">Independent:</p>
+                {data?.independent ? 'Yes' : 'No'}
+              </div>
+              <div className="mb-2">
+                <p className="font-bold">un Member:</p>
+                {data?.unMember ? 'Yes' : 'No'}
+              </div>
+              <div>
+                <p className="font-bold">Gini:</p>
+                {data.gini ? Object.keys(data?.gini).map((key) => data.gini[key]) : 'none'}
+              </div>
+              <div className="mb-2">
+                <p className="font-bold">Currencies:</p>
+                {extractCurrencies()}
+              </div>
             </div>
-            <div className="mb-2">
-              <p className="font-bold">Longitude: </p>
-              {data && data.latlng[1].toFixed(2)}°E
+            {/* GROUP 4 */}
+            <div className="m-5">
+              <div className="mb-2">
+                <p className="font-bold">Language(s):</p>
+                {data.languages ? Object.keys(data?.languages).map((value) => <p>{value}</p>) : 'none'}
+                {/* {extractLanguages()} */}
+              </div>
             </div>
-            <div className="mb-2">
-              <p className="font-bold">Aera:</p>
-              {data && data.area + 'km²'}
-            </div>
-            <div className="mb-2">
-              <p className="font-bold">Border:</p>
-              {extractBorder()}
-            </div>
-            <div className="mb-2">
-              <p className="font-bold">Capital:</p>
-              {data.capital ? data?.capital[0] : 'none'}
-            </div>
-            <div className="mb-2">
-              <p className="font-bold">Independent:</p>
-              {data?.independent ? 'Yes' : 'No'}
-            </div>
-            <div className="mb-2">
-              <p className="font-bold">un Member:</p>
-              {data?.unMember ? 'Yes' : 'No'}
-            </div>
-            <div className="mb-2">
-              <p className="font-bold">Population:</p>
-              <p>{data?.population} People</p>
-            </div>
-            <div className="mb-2">
-              <p className="font-bold">Currencies:</p>
-              {extractCurrencies()}
-            </div>
-            <div className="mb-2">
-              <p className="font-bold">Language(s):</p>
-              {extractLanguages()}
-            </div>
-            <div className="mb-2">
-              <p className="font-bold">Demonyms:</p>
-              <p>
-                {data?.demonyms.eng.f !== data?.demonyms.eng.m
-                  ? data?.demonyms.eng.f + 'and' + data?.demonyms.eng.m
-                  : data?.demonyms.eng.f}
-              </p>
-            </div>
-            <div>
-              <p className="font-bold">Gini:</p>
-              {data.gini ? Object.keys(data?.gini).map((key) => data.gini[key]) : 'none'}
+            {/* GROUP 5 */}
+            <div className="m-5">
+              <div className="mb-2">
+                <p className="font-bold">Population:</p>
+                <p>{data?.population} People</p>
+              </div>
+              <div className="mb-2">
+                <p className="font-bold">Demonyms:</p>
+                <p>
+                  {data?.demonyms.eng.f !== data?.demonyms.eng.m
+                    ? data?.demonyms.eng.f + 'and' + data?.demonyms.eng.m
+                    : data?.demonyms.eng.f}
+                </p>
+              </div>
+              <div className="mb-2">
+                <p className="font-medium">Tld:</p>
+                {data && data.tld.map((item) => item + '\n')}
+              </div>
             </div>
           </div>
         </div>
