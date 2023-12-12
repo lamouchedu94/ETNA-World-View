@@ -71,8 +71,9 @@ export default function mainDetailPage() {
       return nativeName + ' '
     }
   }
+  console.log()
   const nname = extractNativeName()?.split(',')
-
+  console.log(data?.gini)
   return (
     <div className="flex justify-center flex-col">
       <nav className="py-2 mb-4 bg-[rgb(36,35,35)] flex flex-col items-center">
@@ -147,7 +148,7 @@ export default function mainDetailPage() {
             </div>
             <div>
               <p className="font-bold">Gini:</p>
-              {data.gini[2018] ? data?.gini[2018] : 'none'}
+              {data.gini ? Object.keys(data?.gini).map((key) => data.gini[key]) : 'none'}
             </div>
           </div>
         </div>
