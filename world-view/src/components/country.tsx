@@ -49,7 +49,7 @@ export type countryData = {
     }
   }
   gini: {
-    [key: number]: number
+    [key: string]: number
   }
   maps: {
     openStreetMaps: string
