@@ -50,7 +50,7 @@ export default function mainDetailPage() {
         key: String(key),
         value
       }))
-      return mapped.map((item) => item.value.name)
+      return mapped.map((item) => item.value.name + ' ' + item.value.symbol)
     }
   }
 
@@ -71,6 +71,7 @@ export default function mainDetailPage() {
       return nativeName + ' '
     }
   }
+  const nname = extractNativeName()?.split(',')
 
   return (
     <div className="flex justify-center flex-col">
@@ -81,66 +82,73 @@ export default function mainDetailPage() {
       </nav>
 
       {data ? (
-        <div className="flex flex-col items-center text-center">
-          <a href={data.maps.openStreetMaps} target="_blank">
-            {data && <img src={data.flags.svg} alt="flag" width={400}></img>}
-          </a>
-          <div className="text-4xl font-extrabold">{data?.name.common} </div>
-          <div>{extractNativeName()}</div>
-          <div>
-            <p className="font-medium">tld :</p>
-            {data && data.tld.map((item) => item + '\n')}
+        <div className="flex flex-row justify-center items-center text-center">
+          <div className="flex flex-col m-4">
+            <a href={data.maps.openStreetMaps} target="_blank">
+              {data && <img src={data.flags.svg} alt="flag" width={400}></img>}
+            </a>
+            <div className="mt-2 text-4xl font-extrabold">{data?.name.common} </div>
           </div>
-          <div>
-            <p>Latitude: </p> {data && data.latlng[0].toFixed(2)}°N
-          </div>
-          <div>
-            <p>Longitude: </p>
-            {data && data.latlng[1].toFixed(2)}°E
-          </div>
-          <div>
-            <p>Aera:</p>
-            {data && data.area + 'km²'}
-          </div>
-          <div>
-            <p>Border:</p>
-            {extractBorder()}
-          </div>
-          <div>
-            <p>Capital:</p>
-            {data.capital ? data?.capital[0] : 'none'}
-          </div>
-          <div>
-            <p>Independent:</p>
-            {data?.independent ? 'Yes' : 'No'}
-          </div>
-          <div>
-            <p>un Member:</p>
-            {data?.unMember ? 'Yes' : 'No'}
-          </div>
-          <div>
-            <p>Population:</p>
-            <p>{data?.population} People</p>
-          </div>
-          <div>
-            <p>Currencies:</p>
-            {extractCurrencies()}
-          </div>
-          <div>
-            <p>Language(s):</p>
-            {extractLanguages()}
-          </div>
-          <div>
-            <p>Demonyms:</p>
-            <p>
-              {data?.demonyms.eng.f !== data?.demonyms.eng.m
-                ? data?.demonyms.eng.f + 'and' + data?.demonyms.eng.m
-                : data?.demonyms.eng.f}
-            </p>
-          </div>
-          <div>
-            <p>Gini:</p>
-            {data.gini ? data?.gini[2018] : 'none'}
+          <div className="border p-4 rounded-2xl">
+            <div className="mb-2">
+              <p className="font-bold">Commun:</p>
+              {nname ? nname.map((item, i) => <ul key={i}>{item}</ul>) : ''}
+            </div>
+            <div className="mb-2">
+              <p className="font-medium">Tld :</p>
+              {data && data.tld.map((item) => item + '\n')}
+            </div>
+            <div>
+              <p className="font-bold">Latitude: </p> {data && data.latlng[0].toFixed(2)}°N
+            </div>
+            <div className="mb-2">
+              <p className="font-bold">Longitude: </p>
+              {data && data.latlng[1].toFixed(2)}°E
+            </div>
+            <div className="mb-2">
+              <p className="font-bold">Aera:</p>
+              {data && data.area + 'km²'}
+            </div>
+            <div className="mb-2">
+              <p className="font-bold">Border:</p>
+              {extractBorder()}
+            </div>
+            <div className="mb-2">
+              <p className="font-bold">Capital:</p>
+              {data.capital ? data?.capital[0] : 'none'}
+            </div>
+            <div className="mb-2">
+              <p className="font-bold">Independent:</p>
+              {data?.independent ? 'Yes' : 'No'}
+            </div>
+            <div className="mb-2">
+              <p className="font-bold">un Member:</p>
+              {data?.unMember ? 'Yes' : 'No'}
+            </div>
+            <div className="mb-2">
+              <p className="font-bold">Population:</p>
+              <p>{data?.population} People</p>
+            </div>
+            <div className="mb-2">
+              <p className="font-bold">Currencies:</p>
+              {extractCurrencies()}
+            </div>
+            <div className="mb-2">
+              <p className="font-bold">Language(s):</p>
+              {extractLanguages()}
+            </div>
+            <div className="mb-2">
+              <p className="font-bold">Demonyms:</p>
+              <p>
+                {data?.demonyms.eng.f !== data?.demonyms.eng.m
+                  ? data?.demonyms.eng.f + 'and' + data?.demonyms.eng.m
+                  : data?.demonyms.eng.f}
+              </p>
+            </div>
+            <div>
+              <p className="font-bold">Gini:</p>
+              {data.gini[2018] ? data?.gini[2018] : 'none'}
+            </div>
           </div>
         </div>
       ) : (
