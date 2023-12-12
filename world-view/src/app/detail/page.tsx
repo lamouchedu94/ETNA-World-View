@@ -82,13 +82,13 @@ export default function mainDetailPage() {
             {/* GROUP 1 */}
             <div className="m-5">
               <div className="mb-2">
-                <p className="font-bold">Commun:</p>
+                <p className="font-bold text-3xl pb-2">Commun Name</p>
                 {nname ? nname.map((item, i) => <ul key={i}>{item}</ul>) : ''}
               </div>
             </div>
             {/* GROUP 2 */}
             <div className="m-5">
-              <p>Geo data</p>
+              <p className="font-bold text-3xl pb-2">Geo data</p>
               <div className="mb-2">
                 <p className="font-bold">Capital:</p>
                 {data.capital ? data?.capital[0] : 'none'}
@@ -111,7 +111,7 @@ export default function mainDetailPage() {
             </div>
             {/* GROUP 3 */}
             <div className="m-5">
-              <p>Political</p>
+              <p className="font-bold text-3xl pb-2">Political</p>
               <div className="mb-2">
                 <p className="font-bold">Independent:</p>
                 {data?.independent ? 'Yes' : 'No'}
@@ -132,13 +132,14 @@ export default function mainDetailPage() {
             {/* GROUP 4 */}
             <div className="m-5">
               <div className="mb-2">
-                <p className="font-bold">Language(s):</p>
+                <p className="font-bold text-3xl pb-2">Language(s)</p>
                 {data.languages ? Object.keys(data?.languages).map((value) => <p>{value}</p>) : 'none'}
                 {/* {extractLanguages()} */}
               </div>
             </div>
             {/* GROUP 5 */}
             <div className="m-5">
+              <p className="font-bold text-3xl pb-2">Demography</p>
               <div className="mb-2">
                 <p className="font-bold">Population:</p>
                 <p>{data?.population} People</p>
