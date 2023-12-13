@@ -20,20 +20,7 @@ export default function mainDetailPage() {
       })
     }
   }, [ccn3])
-  // URL -> `/dashboard?search=my-project`
-  // `search` -> 'my-project'
-  // function displayBorder() {
-  //   if (data && Array.isArray(data.border)) {
-  //     let res = ''
-  //     for (const val of data.border) {
-  //       res += val
-  //     }
-  //     return res
-  //   } else {
-  //     // Gérez le cas où data.border n'est pas défini ou n'est pas un tableau
-  //     console.error("data.border n'est pas un tableau ou n'est pas défini.")
-  //   }
-  // }
+
   function extractBorder() {
     if (data?.borders) {
       const mapped = Object.entries(data?.borders).map(([key, value]) => ({
